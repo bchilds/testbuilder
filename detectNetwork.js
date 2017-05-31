@@ -21,6 +21,10 @@ var detectNetwork = function(cardNumber) {
   		return 'Diner\'s Club';
   } else if ( cardLength === 15 && ( firstTwoNums === '34' || firstTwoNums === '37' ) ){
   		return 'American Express';
+  } else if ( ( cardLength === 13 || cardLength === 16 || cardLength === 19 ) && firstTwoNums[0] === '4' ) {
+  		return 'Visa';
+  } else if ( cardLength === 16 && firstTwoNums === '51' || firstTwoNums === '52' || firstTwoNums === '53' || firstTwoNums === '54' || firstTwoNums === '55' ) {
+  		return 'MasterCard';
   } else {
   	return 'Card number invalid';
   }
