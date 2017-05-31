@@ -13,6 +13,17 @@ var detectNetwork = function(cardNumber) {
   // The American Express network always starts with a 34 or 37 and is 15 digits long
 
   // Once you've read this, go ahead and try to implement this function, then return to the console.
+  var firstTwoNums = cardNumber[0] + cardNumber[1];
+  var cardLength = cardNumber.length;
+
+  //Simple series of if statements accomplishes same thing as multiple detection functions
+  if( cardLength === 14 && ( firstTwoNums === '38' || firstTwoNums === '39' ) ){
+  		return 'Diner\'s Club';
+  } else if ( cardLength === 15 && ( firstTwoNums === '34' || firstTwoNums === '37' ) ){
+  		return 'American Express';
+  } else {
+  	return 'Card number invalid';
+  }
 };
 
 
