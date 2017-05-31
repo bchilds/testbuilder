@@ -14,20 +14,26 @@ var detectNetwork = function(cardNumber) {
 
   // Once you've read this, go ahead and try to implement this function, then return to the console.
   var firstTwoNums = cardNumber[0] + cardNumber[1];
+  var firstFourNums = cardNumber.split(0,4);
   var cardLength = cardNumber.length;
 
-  //Simple series of if statements accomplishes same thing as multiple detection functions
+  //Simple series of if statements accomplishes same thing as multiple detection functions, more reliable than Switch
   if( cardLength === 14 && ( firstTwoNums === '38' || firstTwoNums === '39' ) ){
-  		return 'Diner\'s Club';
+  	return 'Diner\'s Club';
   } else if ( cardLength === 15 && ( firstTwoNums === '34' || firstTwoNums === '37' ) ){
-  		return 'American Express';
+  	return 'American Express';
   } else if ( ( cardLength === 13 || cardLength === 16 || cardLength === 19 ) && firstTwoNums[0] === '4' ) {
-  		return 'Visa';
+  	return 'Visa';
   } else if ( cardLength === 16 && firstTwoNums === '51' || firstTwoNums === '52' || firstTwoNums === '53' || firstTwoNums === '54' || firstTwoNums === '55' ) {
-  		return 'MasterCard';
+  	return 'MasterCard';
+  } else if ( (cardLength === 16 || cardLength === 19) && (firstFourNums === '6011') ) {
+  	return 'Discover'
+  } else if ( (cardLength > 11 && cardLength < 20) && (firstFourNums === '5018' || firstFourNums === '5020' || firstFourNums === '5038' || firstFourNums === '6304') ) {
+  	return 'Maestro';
   } else {
   	return 'Card number invalid';
   }
+
 };
 
 
