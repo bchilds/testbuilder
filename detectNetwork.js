@@ -14,9 +14,8 @@ var detectNetwork = function(cardNumber) {
 
   // Once you've read this, go ahead and try to implement this function, then return to the console.
   var firstTwoNums = cardNumber[0] + cardNumber[1];
-  var firstFourNums = cardNumber.split(0,4);
+  var firstFourNums = cardNumber.slice(0,4);
   var cardLength = cardNumber.length;
-
   //Simple series of if statements accomplishes same thing as multiple detection functions, more reliable than Switch
   if( cardLength === 14 && ( firstTwoNums === '38' || firstTwoNums === '39' ) ){
   	return 'Diner\'s Club';
