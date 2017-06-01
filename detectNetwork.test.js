@@ -265,5 +265,51 @@ describe('should support China UnionPay', function() {
 //conditions: Switch always has a prefix of 4903, 4905, 4911, 4936, 564182, 633110, 6333, or 6759 and a length of 16, 18, or 19.
 //note: Switch and Visa seem to have some overlapping card numbers - in any apparent conflict, you should choose the network with the longer prefix.
 describe('should support Switch', function() {
+  var expect = chai.expect;
+  var prefixes = [4903, 4905, 4911, 4936, 6333, 6759, 564182, 633110];
 
+  for (var i = 0; i < 6; i++) {
+        (function(prefix) {
+        it('has a prefix of ' + prefix + ' and a length of 16', function() {
+          expect(detectNetwork( prefix + '121234561234') ).to.equal('Switch');
+        });
+        it('has a prefix of ' + prefix + ' and a length of 18', function() {
+          expect(detectNetwork( prefix + '12123456123456') ).to.equal('Switch');
+        });
+        it('has a prefix of ' + prefix + ' and a length of 19', function() {
+          expect(detectNetwork( prefix + '121234561234567') ).to.equal('Switch');
+        });
+    })(prefixes[i]);
+  }
+
+  for (var i = 6; i < 8; i++) {
+        (function(prefix) {
+        it('has a prefix of ' + prefix + ' and a length of 16', function() {
+          expect(detectNetwork( prefix + '1234561234') ).to.equal('Switch');
+        });
+        it('has a prefix of ' + prefix + ' and a length of 18', function() {
+          expect(detectNetwork( prefix + '123456123456') ).to.equal('Switch');
+        });
+        it('has a prefix of ' + prefix + ' and a length of 19', function() {
+          expect(detectNetwork( prefix + '1234561234567') ).to.equal('Switch');
+        });
+    })(prefixes[i]);
+  }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
