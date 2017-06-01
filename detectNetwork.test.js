@@ -201,31 +201,69 @@ describe('Maestro', function() { // 32 tests
     });
   }
 
-  // Needs to cover card length range 12, 13, 14, 15, 16, 17, 19, and for each of those prefixes of 5018, 5020, 5038, 6304
-  //for loop to cover all these
-  /*for(var i = 12; i <= 19; i++){ //loop through all card number lengths.
-    (function(i, cardNums){       
-      it('has a prefix of ' + cardNums[0].slice(0,4) + ' and a length of ' + cardNums[0], function(){
-        //assert( detectNetwork(cardNums[0]) === 'Maestro' );
-        detectNetwork(cardNums[0].toString()).should.equal('Maestro');
-      });
-      it('has a prefix of ' + cardNums[1].slice(0,4) + ' and a length of ' + cardNums[1].length, function(){
-        assert( detectNetwork(cardNums[1]) === 'Maestro' );
-      });
-      it('has a prefix of ' + cardNums[2].slice(0,4) + ' and a length of ' + cardNums[2].length, function(){
-        assert( detectNetwork(cardNums[2]) === 'Maestro' );
-      });
-      it('has a prefix of ' + cardNums[3].slice(0,4) + ' and a length of ' + cardNums[3].length, function(){
-        assert( detectNetwork(cardNums[3]) === 'Maestro' );
-      });
 
-       })(i, cardNums)
-
-      cardNums[0] += '' + 4;
-
-    }*/
 });
 
+//conditions: China UnionPay always has a prefix of 622126-622925, 624-626, or 6282-6288 and a length of 16-19.
+describe('should support China UnionPay', function() {
+  var expect = chai.expect;
+  //expect(thing).to.equal(thing2);
 
-describe('should support China UnionPay')
-describe('should support Switch')
+  for (var prefix = 624; prefix <= 626; prefix++ ) {
+    (function(prefix) {
+        it('has a prefix of ' + prefix + ' and a length of 16', function() {
+          expect(detectNetwork( prefix + '1231234561234') ).to.equal('China UnionPay');
+        });
+        it('has a prefix of ' + prefix + ' and a length of 17', function() {
+          expect(detectNetwork( prefix + '12312345612345') ).to.equal('China UnionPay');
+        });
+        it('has a prefix of ' + prefix + ' and a length of 18', function() {
+          expect(detectNetwork( prefix + '123123456123456') ).to.equal('China UnionPay');
+        });
+        it('has a prefix of ' + prefix + ' and a length of 19', function() {
+          expect(detectNetwork( prefix + '1231234561234567') ).to.equal('China UnionPay');
+        });
+    })(prefix);
+  }
+
+  for (var prefix = 622126; prefix <= 622925; prefix++){
+    (function(prefix) {
+      it('has a prefix of ' + prefix + ' and a length of 16', function() {
+        expect(detectNetwork( prefix + '1234561234') ).to.equal('China UnionPay');
+      });
+      it('has a prefix of ' + prefix + ' and a length of 17', function() {
+        expect(detectNetwork( prefix + '12345612345') ).to.equal('China UnionPay');
+      });
+      it('has a prefix of ' + prefix + ' and a length of 18', function() {
+        expect(detectNetwork( prefix + '123456123456') ).to.equal('China UnionPay');
+      });
+      it('has a prefix of ' + prefix + ' and a length of 19', function() {
+        expect(detectNetwork( prefix + '1234561234567') ).to.equal('China UnionPay');
+      });
+    })(prefix);
+  }
+
+  for (var prefix = 6282; prefix <= 6288; prefix++ ) {
+    (function(prefix) {
+        it('has a prefix of ' + prefix + ' and a length of 16', function() {
+          expect(detectNetwork( prefix + '121234561234') ).to.equal('China UnionPay');
+        });
+        it('has a prefix of ' + prefix + ' and a length of 17', function() {
+          expect(detectNetwork( prefix + '1212345612345') ).to.equal('China UnionPay');
+        });
+        it('has a prefix of ' + prefix + ' and a length of 18', function() {
+          expect(detectNetwork( prefix + '12123456123456') ).to.equal('China UnionPay');
+        });
+        it('has a prefix of ' + prefix + ' and a length of 19', function() {
+          expect(detectNetwork( prefix + '121234561234567') ).to.equal('China UnionPay');
+        });
+    })(prefix);
+  }
+
+});
+
+//conditions: Switch always has a prefix of 4903, 4905, 4911, 4936, 564182, 633110, 6333, or 6759 and a length of 16, 18, or 19.
+//note: Switch and Visa seem to have some overlapping card numbers - in any apparent conflict, you should choose the network with the longer prefix.
+describe('should support Switch', function() {
+
+});

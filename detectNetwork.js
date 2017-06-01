@@ -16,20 +16,29 @@ var detectNetwork = function(cardNumber) {
   var firstTwoNums = cardNumber[0] + cardNumber[1];
   var firstThreeNums = cardNumber.slice(0,3);
   var firstFourNums = cardNumber.slice(0,4);
+  var firstFiveNums = cardNumber.slice(0,5);
+  var firstSixNums = cardNumber.slice(0,6);
   var cardLength = cardNumber.length;
   //Simple series of if statements accomplishes same thing as multiple detection functions, more reliable than Switch
   if( cardLength === 14 && ( firstTwoNums === '38' || firstTwoNums === '39' ) ){ //2 tests
   	return 'Diner\'s Club';
   } else if ( cardLength === 15 && ( firstTwoNums === '34' || firstTwoNums === '37' ) ){ //2 tests
   	return 'American Express';
-  } else if ( ( cardLength === 13 || cardLength === 16 || cardLength === 19 ) && firstTwoNums[0] === '4' ) { //3 tests
-  	return 'Visa';
   } else if ( cardLength === 16 && firstTwoNums === '51' || firstTwoNums === '52' || firstTwoNums === '53' || firstTwoNums === '54' || firstTwoNums === '55' ) { //5 tests
   	return 'MasterCard';
-  } else if ( (cardLength === 16 || cardLength === 19) && (firstFourNums === '6011' || firstTwoNums == '65' || (firstThreeNums >= 644 && firstThreeNums <= 649) ) ) { //16 tests
+  } else if ( (cardLength === 16 || cardLength === 19) && (firstFourNums === '6011' || firstTwoNums == '65' || (firstThreeNums >= '644' && firstThreeNums <= '649') ) ) { //16 tests
   	return 'Discover'
   } else if ( (cardLength >= 12 && cardLength <= 19) && (firstFourNums === '5018' || firstFourNums === '5020' || firstFourNums === '5038' || firstFourNums === '6304') ) {
   	return 'Maestro';  // 32 tests
+  } else if ( (cardLength >= 16 || cardLength <= 19) && 
+  	( (firstSixNums >= '622126' && firstSixNums <= '622925') || (firstThreeNums >= '624' && firstThreeNums <= '626') || (firstFourNums >= '6282' && firstFourNums <= '6288') ) ) {
+  	return 'China UnionPay';
+  } else if ( (cardLength === 16 || cardLength === 18 || cardLength === 19) && 
+  	(firstFourNums === '4903' || firstFourNums === '4905' || firstFourNums === '4911' || firstFourNums === '4936' || firstFourNums === '6333' || firstFourNums === '6759' || 
+  	firstSixNums === '564182' || firstSixNums === '633110' ) ) { //will return switch before visa due to longer prefixes
+  	return 'Switch';
+  } else if ( ( cardLength === 13 || cardLength === 16 || cardLength === 19 ) && firstTwoNums[0] === '4' ) { //3 tests
+	return 'Visa';
   } else {
   	return 'Card number invalid';
   };
