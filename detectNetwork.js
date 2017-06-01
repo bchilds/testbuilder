@@ -14,6 +14,7 @@ var detectNetwork = function(cardNumber) {
 
   // Once you've read this, go ahead and try to implement this function, then return to the console.
   var firstTwoNums = cardNumber[0] + cardNumber[1];
+  var firstThreeNums = cardNumber.slice(0,3);
   var firstFourNums = cardNumber.slice(0,4);
   var cardLength = cardNumber.length;
   //Simple series of if statements accomplishes same thing as multiple detection functions, more reliable than Switch
@@ -25,14 +26,17 @@ var detectNetwork = function(cardNumber) {
   	return 'Visa';
   } else if ( cardLength === 16 && firstTwoNums === '51' || firstTwoNums === '52' || firstTwoNums === '53' || firstTwoNums === '54' || firstTwoNums === '55' ) {
   	return 'MasterCard';
-  } else if ( (cardLength === 16 || cardLength === 19) && (firstFourNums === '6011') ) {
+  } else if ( (cardLength === 16 || cardLength === 19) && (firstFourNums === '6011' || firstTwoNums == '65' || (firstThreeNums >= 644 && firstThreeNums <= 649) ) ) {
   	return 'Discover'
   } else if ( (cardLength > 11 && cardLength < 20) && (firstFourNums === '5018' || firstFourNums === '5020' || firstFourNums === '5038' || firstFourNums === '6304') ) {
   	return 'Maestro';
   } else {
   	return 'Card number invalid';
-  }
+  };
 
-};
+}
+
+
+
 
 

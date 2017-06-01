@@ -142,12 +142,59 @@ describe('MasterCard', function() {
 describe('Discover', function() {
   // Tests without a function will be marked as "pending" and not run
   // Implement these tests (and others) and make them pass!
-  it('has a prefix of 6011 and a length of 16');
-  it('has a prefix of 6011 and a length of 19');
+  var assert = chai.assert;
+
+  it('has a prefix of 6011 and a length of 16', function() {
+    assert(detectNetwork('6011123456781234') === 'Discover');
+  });
+  it('has a prefix of 6011 and a length of 19', function(){
+    assert(detectNetwork('6011123456781234123') === 'Discover');
+  });
+  it('has a prefix of 65 and a length of 16', function() {
+    assert(detectNetwork('6511123456781234') === 'Discover');
+  });
+  it('has a prefix of 65 and a length of 19', function(){
+    assert(detectNetwork('6511123456781234123') === 'Discover');
+  });
+/*
+  for (var prefix = 644; prefix <= 649; prefix++ ) {
+    (function(prefix) {
+      it('has a prefix of ' + prefix + ' and a length of 16', function() {
+        assert(detectNetwork(prefix +'1234567812345') === 'Discover');
+      });
+      it('has a prefix of ' + prefix + ' and a length of 19', function() {
+        assert(detectNetwork(prefix +'1234567812345123') === 'Discover');
+      });
+    })(prefix)
+  }*/
+
+
+
 });
 
 describe('Maestro', function() {
-  // Write full test coverage for the Maestro card
+  var assert = chai.assert;
+  var cardNums = ['501812341234','502012341234', '503812341234', '630412341234'];
+  // Needs to cover card length range 12, 13, 14, 15, 16, 17, 19, and for each of those prefixes of 5018, 5020, 5038, 6304
+  //for loop to cover all these
+  for(var i = 12; i < 20; i++){ //loop through all card number lengths.
+      it('has a prefix of ' + cardNums[0].slice(0,4) + ' and a length of ' + i, function(){
+        assert( detectNetwork(cardNums[0]) === 'Maestro' );
+      });
+      it('has a prefix of ' + cardNums[1].slice(0,4) + ' and a length of ' + i, function(){
+        assert( detectNetwork(cardNums[1]) === 'Maestro' );
+      });
+      it('has a prefix of ' + cardNums[2].slice(0,4) + ' and a length of ' + i, function(){
+        assert( detectNetwork(cardNums[2]) === 'Maestro' );
+      });
+      it('has a prefix of ' + cardNums[3].slice(0,4) + ' and a length of ' + i, function(){
+        assert( detectNetwork(cardNums[3]) === 'Maestro' );
+      });
+
+      cardNums.forEach(function(elem){
+        elem += '4'; //append character to end of each string to increase length
+      });
+    } // end for
 });
 
 describe('should support China UnionPay')
