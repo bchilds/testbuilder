@@ -43,7 +43,7 @@ var FILL_ME_IN = 'Fill this value in';
 //   });
 // });
 
-describe('Diner\'s Club', function() {
+describe('Diner\'s Club', function() { //2 tests
   // Be careful, tests can have bugs too...
 
   it('has a prefix of 38 and a length of 14', function() {
@@ -60,7 +60,7 @@ describe('Diner\'s Club', function() {
   });
 });
 
-describe('American Express', function() {
+describe('American Express', function() { //2 tests
   // It can get annoying to keep typing the if/throw, so here is a
   // helper function to throw an error if the input statement isn't true. 
   var assert = function(isTrue) {
@@ -79,7 +79,7 @@ describe('American Express', function() {
   });
 });
 
-describe('Visa', function() {
+describe('Visa', function() { //3 tests
   // Chai is an entire library of helper functions for tests!
   // Chai provides an assert that acts the same as our previous assert.
   // Search the documentation to figure out how to access it. 
@@ -100,7 +100,7 @@ describe('Visa', function() {
   });
 });
 
-describe('MasterCard', function() {
+describe('MasterCard', function() { //5 tests
   // Chai lets you write more human-readable tests that throw helpful errors.
   // Expect syntax is one way to do this, but there are others. 
   // If you want to know more, check out the documentation. 
@@ -139,7 +139,7 @@ describe('MasterCard', function() {
  
 });
 
-describe('Discover', function() {
+describe('Discover', function() { //16 tests
   // Tests without a function will be marked as "pending" and not run
   // Implement these tests (and others) and make them pass!
   var assert = chai.assert;
@@ -156,7 +156,7 @@ describe('Discover', function() {
   it('has a prefix of 65 and a length of 19', function(){
     assert(detectNetwork('6511123456781234123') === 'Discover');
   });
-/*
+
   for (var prefix = 644; prefix <= 649; prefix++ ) {
     (function(prefix) {
       it('has a prefix of ' + prefix + ' and a length of 16', function() {
@@ -166,36 +166,66 @@ describe('Discover', function() {
         assert(detectNetwork(prefix +'1234567812345123') === 'Discover');
       });
     })(prefix)
-  }*/
+  }
 
 
 
 });
 
-describe('Maestro', function() {
+describe('Maestro', function() { // 32 tests
   var assert = chai.assert;
-  var cardNums = ['501812341234','502012341234', '503812341234', '630412341234'];
+  var cardNums = ['50181234123','50201234123', '50381234123', '63041234123']; //all 11 chars
+
+
+  for (var i = 0; i <= 7; i++ ){
+    it('has a prefix of ' + cardNums[0].slice(0,4) + ' and a length of ' + (cardNums[0].length + i + 1), function(){
+      assert ( detectNetwork( cardNums[0] += i.toString() ) === 'Maestro' );
+    });
+  }
+
+  for (var i = 0; i <= 7; i++ ){
+    it('has a prefix of ' + cardNums[1].slice(0,4) + ' and a length of ' + (cardNums[1].length + i + 1), function(){
+      assert ( detectNetwork( cardNums[1] += i.toString() ) === 'Maestro' );
+    });
+  }
+
+  for (var i = 0; i <= 7; i++ ){
+    it('has a prefix of ' + cardNums[2].slice(0,4) + ' and a length of ' + (cardNums[2].length + i + 1), function(){
+      assert ( detectNetwork( cardNums[2] += i.toString() ) === 'Maestro' );
+    });
+  }
+
+  for (var i = 0; i <= 7; i++ ){
+    it('has a prefix of ' + cardNums[3].slice(0,4) + ' and a length of ' + (cardNums[3].length + i + 1), function(){
+      assert ( detectNetwork( cardNums[3] += i.toString() ) === 'Maestro' );
+    });
+  }
+
   // Needs to cover card length range 12, 13, 14, 15, 16, 17, 19, and for each of those prefixes of 5018, 5020, 5038, 6304
   //for loop to cover all these
-  for(var i = 12; i < 20; i++){ //loop through all card number lengths.
-      it('has a prefix of ' + cardNums[0].slice(0,4) + ' and a length of ' + i, function(){
-        assert( detectNetwork(cardNums[0]) === 'Maestro' );
+  /*for(var i = 12; i <= 19; i++){ //loop through all card number lengths.
+    (function(i, cardNums){       
+      it('has a prefix of ' + cardNums[0].slice(0,4) + ' and a length of ' + cardNums[0], function(){
+        //assert( detectNetwork(cardNums[0]) === 'Maestro' );
+        detectNetwork(cardNums[0].toString()).should.equal('Maestro');
       });
-      it('has a prefix of ' + cardNums[1].slice(0,4) + ' and a length of ' + i, function(){
+      it('has a prefix of ' + cardNums[1].slice(0,4) + ' and a length of ' + cardNums[1].length, function(){
         assert( detectNetwork(cardNums[1]) === 'Maestro' );
       });
-      it('has a prefix of ' + cardNums[2].slice(0,4) + ' and a length of ' + i, function(){
+      it('has a prefix of ' + cardNums[2].slice(0,4) + ' and a length of ' + cardNums[2].length, function(){
         assert( detectNetwork(cardNums[2]) === 'Maestro' );
       });
-      it('has a prefix of ' + cardNums[3].slice(0,4) + ' and a length of ' + i, function(){
+      it('has a prefix of ' + cardNums[3].slice(0,4) + ' and a length of ' + cardNums[3].length, function(){
         assert( detectNetwork(cardNums[3]) === 'Maestro' );
       });
 
-      cardNums.forEach(function(elem){
-        elem += '4'; //append character to end of each string to increase length
-      });
-    } // end for
+       })(i, cardNums)
+
+      cardNums[0] += '' + 4;
+
+    }*/
 });
+
 
 describe('should support China UnionPay')
 describe('should support Switch')

@@ -18,18 +18,18 @@ var detectNetwork = function(cardNumber) {
   var firstFourNums = cardNumber.slice(0,4);
   var cardLength = cardNumber.length;
   //Simple series of if statements accomplishes same thing as multiple detection functions, more reliable than Switch
-  if( cardLength === 14 && ( firstTwoNums === '38' || firstTwoNums === '39' ) ){
+  if( cardLength === 14 && ( firstTwoNums === '38' || firstTwoNums === '39' ) ){ //2 tests
   	return 'Diner\'s Club';
-  } else if ( cardLength === 15 && ( firstTwoNums === '34' || firstTwoNums === '37' ) ){
+  } else if ( cardLength === 15 && ( firstTwoNums === '34' || firstTwoNums === '37' ) ){ //2 tests
   	return 'American Express';
-  } else if ( ( cardLength === 13 || cardLength === 16 || cardLength === 19 ) && firstTwoNums[0] === '4' ) {
+  } else if ( ( cardLength === 13 || cardLength === 16 || cardLength === 19 ) && firstTwoNums[0] === '4' ) { //3 tests
   	return 'Visa';
-  } else if ( cardLength === 16 && firstTwoNums === '51' || firstTwoNums === '52' || firstTwoNums === '53' || firstTwoNums === '54' || firstTwoNums === '55' ) {
+  } else if ( cardLength === 16 && firstTwoNums === '51' || firstTwoNums === '52' || firstTwoNums === '53' || firstTwoNums === '54' || firstTwoNums === '55' ) { //5 tests
   	return 'MasterCard';
-  } else if ( (cardLength === 16 || cardLength === 19) && (firstFourNums === '6011' || firstTwoNums == '65' || (firstThreeNums >= 644 && firstThreeNums <= 649) ) ) {
+  } else if ( (cardLength === 16 || cardLength === 19) && (firstFourNums === '6011' || firstTwoNums == '65' || (firstThreeNums >= 644 && firstThreeNums <= 649) ) ) { //16 tests
   	return 'Discover'
-  } else if ( (cardLength > 11 && cardLength < 20) && (firstFourNums === '5018' || firstFourNums === '5020' || firstFourNums === '5038' || firstFourNums === '6304') ) {
-  	return 'Maestro';
+  } else if ( (cardLength >= 12 && cardLength <= 19) && (firstFourNums === '5018' || firstFourNums === '5020' || firstFourNums === '5038' || firstFourNums === '6304') ) {
+  	return 'Maestro';  // 32 tests
   } else {
   	return 'Card number invalid';
   };
